@@ -64,14 +64,13 @@ class SimpleConvNet(nn.Module):
         return y
 
     def __forward_vector(self, x):
-        y = 0
-        # z_conv = conv2d_vector(x, self.conv_layer.weight, self.conv_layer.bias, self.device)
-        # z_pool = pool2d_vector(z_conv, self.device)
-        # z_pool_reshaped = reshape_vector(z_pool, self.device)
-        # z_fc1 = fc_layer_vector(z_pool_reshaped, self.fc_layer1.weight, self.fc_layer1.bias, self.device)
-        # z_relu = relu_vector(z_fc1, self.device)
-        # z_fc2 = fc_layer_vector(z_relu, self.fc_layer2.weight, self.fc_layer2.bias, self.device)
-        # y = F.softmax(z_fc2, dim=1)
+        z_conv = conv2d_vector(x, self.conv_layer.weight, self.conv_layer.bias, self.device)
+        z_pool = pool2d_vector(z_conv, self.device)
+        z_pool_reshaped = reshape_vector(z_pool, self.device)
+        z_fc1 = fc_layer_vector(z_pool_reshaped, self.fc_layer1.weight, self.fc_layer1.bias, self.device)
+        z_relu = relu_vector(z_fc1, self.device)
+        z_fc2 = fc_layer_vector(z_relu, self.fc_layer2.weight, self.fc_layer2.bias, self.device)
+        y = F.softmax(z_fc2, dim=1)
         return y
 
 
